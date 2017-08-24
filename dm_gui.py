@@ -59,18 +59,22 @@ def dice_menu():
     if sides == "menu":
         init_game()
     else:
+        rolls = raw_input('Number of rolls? (Default = 1)\n')
         # See if input is a number, throw error and have user try again if not
         try:
-            dice = Dice(sides)
+            if rolls == '':
+                dice = Dice(sides)
+            else:
+                dice = Dice(sides, rolls)
             roll_result = dice.roll()
         except:
             print "Invalid User Input,\n"
             dice_menu()
 
-        print "Result: {}".format(roll_result)
+        print "Result of {}d{}: {}".format(rolls, sides, roll_result)
         dice_menu()
-    
 
+# Send Players Instructions    
 def instruction():
     print "### INSTRUCTION PROMPT ###"
     prompt = raw_input('Enter your instructions, input "menu" to return to main menu\n')
@@ -81,6 +85,8 @@ def instruction():
         init_game()
     else:
         print "Message sent: {}".format(prompt)
+    
+    # Repeat instruction
     instruction()
 
 

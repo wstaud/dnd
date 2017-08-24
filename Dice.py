@@ -2,11 +2,20 @@
 import random
 
 class Dice:
-    def __init__(self, sides=20):
+    def __init__(self, sides=20, rolls = 1):
         self.sides = int(sides)
+        self.rolls = int(rolls)
 
     def roll(self):
-        return random.randint(1, self.sides)
+        if self.rolls > 1:
+            x = 0
+            self.die_rolls = []
+            while x < self.rolls:
+                self.die_rolls.append(random.randint(1, self.sides))
+                x += 1
+            return self.die_rolls
+        else:
+            return random.randint(1, self.sides)
 
 
 
