@@ -8,11 +8,11 @@ class Dice:
 
     def roll(self):
         if self.rolls > 1:
-            x = 0
+            i = 0
             self.die_rolls = []
-            while x < self.rolls:
+            while i < self.rolls:
                 self.die_rolls.append(random.randint(1, self.sides))
-                x += 1
+                i += 1
             return self.die_rolls
         else:
             return random.randint(1, self.sides)

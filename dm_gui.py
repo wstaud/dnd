@@ -1,7 +1,7 @@
 """DnD Pathfinder GUI"""
 from Dice import Dice
 
-# Ask user to open ports/sockets to start game
+### Ask user to open ports/sockets to start game
 def main_menu():
     print "Welcome to Pathfinder Capstone DM Console\nSelect from the menu below:"
     start_game = raw_input("1: Init Game\n2: Exit Program\n")
@@ -15,12 +15,18 @@ def main_menu():
         print "Invalid selection, please choose from below"
         main_menu()
 
-# Display connected players and GUI for DM
+### Open sockets and start server... Display connected players and GUI for DM
 def init_game():
     # TODO recycle connected players
+    print ("\n\n***Player Information Example***\n"
+           "player 1 | H:20/25 | Sp:N/A |\n"
+           "player 2 | H:30/30 | Sp:5/5 |\n"
+           "player 3 | H:20/20 | Sp:N/A |\n")
 
     # TODO Display GUI choices
-    print "Select from the menu below:"
+    print ("\n\n###### Main Menu ######\n"
+           "Select from the menu below:"
+          )
     dm_selection = raw_input("1: Call roll init\n2: Dice Roll Menu\n3: Send instructions\n4: Help Menu\n0: Kill Server\n")
 
     if dm_selection == "1":
@@ -30,8 +36,13 @@ def init_game():
     elif dm_selection == "3":
         instruction()
     elif dm_selection == "4":
-        pass
+        help_menu()
     elif dm_selection == "0":
+        #kill server
+        print "Killing server...\n"
+
+        #server killed
+        print "Server killed. Exiting!"
         exit()
     else:
         command = dm_selection.split(' ', 1)[0]
@@ -47,12 +58,12 @@ def init_game():
             print "Invalid command, reference menu below and select 4 if additonal commands are needed"
             init_game()
 
-
-
+### Init roll call to all players
 def roll_call():
-    pass
+    print "This is a roll call"
+    init_game()
 
-# Roll a dice with a specific number of sides
+### Roll a dice with a specific number of sides
 def dice_menu():
     sides = raw_input('Input number of sides or input "menu" to return to menu\n')
 
@@ -74,7 +85,7 @@ def dice_menu():
         print "Result of {}d{}: {}".format(rolls, sides, roll_result)
         dice_menu()
 
-# Send Players Instructions    
+### Send Players Instructions    
 def instruction():
     print "### INSTRUCTION PROMPT ###"
     prompt = raw_input('Enter your instructions, input "menu" to return to main menu\n')
@@ -89,8 +100,50 @@ def instruction():
     # Repeat instruction
     instruction()
 
+### Command Help Menu
+def help_menu():
+    print ("\n\n ====== Help Menu ======\n"
+           "Please select a command to learn more about it, type menu to return to menu.\n"
+           "1: health\n"
+           "2: kick\n"
+           "3: ban\n"
+           "4: PM\n"
+           )
+    prompt = raw_input()
+
+    if prompt == "1":
+        print ("\n\nBelow is an example of the health removal command:\n"
+               "health playerName mod ##  | Ex: health player1 remove 5\n"
+               "Additional mod arguments:\n"
+               "add 5 (add 5 health)\n"
+               "fill (fill health)\n"
+               "ko (bring to zero)\n"
+               "kill (bring to death value)\n"
+              )
+        init_game()
+    elif prompt == "2":
+        print ("\n\nBelow is an example of the kick player command:\n"
+               "kick player2 (kicks player 2 from the game)\n"
+              )
+        init_game()
+    elif prompt == "3":
+        print ("\n\nBelow is an example of the ban player command:\n"
+               "ban player3 (bans player 3 from the server)\n"
+              )
+        init_game()
+    elif prompt == "4":
+        print ("\n\nBelow is an example of the PM player command:\n"
+               "pm player1 (inits personal message with player 1)\n"
+               "Message: hello player 1! (sends 'hello player 1' to player1)"
+              )
+        init_game()
+    else:
+        print "Invalid command, try again or type 'menu' to return to menu"
+        help_menu()
+             
 
 
 
-# Open Main Menu on launch
+
+### Open Main Menu on launch
 main_menu()
